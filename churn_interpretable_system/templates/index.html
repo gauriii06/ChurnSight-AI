@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Churn Prediction Dashboard</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f6f8;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:600px;
+margin:auto;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:6px;
+font-size:16px;
+}
+
+.result{
+margin-top:20px;
+padding:15px;
+background:#f1f5f9;
+border-radius:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Customer Churn Prediction</h2>
+
+<form method="POST">
+
+<label>Tenure</label>
+<input type="number" name="tenure" required>
+
+<label>Monthly Charges</label>
+<input type="number" step="0.01" name="monthly_charges" required>
+
+<label>Contract Type</label>
+<select name="contract">
+<option value="month">Month-to-month</option>
+<option value="one">One year</option>
+<option value="two">Two year</option>
+</select>
+
+<button type="submit">Predict Churn</button>
+
+</form>
+
+{% if probability %}
+
+<div class="result">
+
+<h3>Prediction</h3>
+
+<p><b>Churn Probability:</b> {{probability}}</p>
+<p><b>Risk Level:</b> {{risk}}</p>
+
+<h4>Recommendations</h4>
+
+<ul>
+{% for rec in recommendations %}
+<li>{{rec}}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
